@@ -76,7 +76,11 @@ class Transaction implements \JsonSerializable
      */
     public function setDescription($var)
     {
-        $this->description = (string) $var;
+        if($var instanceof Description) {
+            $this->description = $var;
+        } else {
+            $this->description = (string) $var;
+        }
     }
 
     /**
@@ -195,4 +199,9 @@ class Transaction implements \JsonSerializable
     {
         return $this->cancellation;
     }
+
+    public function descriptionIsStructured() {
+        return $this->description instanceof Description;
+    }
+
 }
