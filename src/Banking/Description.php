@@ -187,7 +187,7 @@ class Description implements JsonSerializable
     /**
      * @return string
      */
-    public function getPostingCode(): string
+    public function getPostingCode()
     {
         return $this->postingCode;
     }
@@ -203,7 +203,7 @@ class Description implements JsonSerializable
     /**
      * @return string
      */
-    public function getDaybookNumber(): string
+    public function getDaybookNumber()
     {
         return $this->daybookNumber;
     }
@@ -219,7 +219,7 @@ class Description implements JsonSerializable
     /**
      * @return string
      */
-    public function getPostingText(): string
+    public function getPostingText()
     {
         return $this->postingText;
     }
@@ -235,7 +235,7 @@ class Description implements JsonSerializable
     /**
      * @return string
      */
-    public function getUsageText(): string
+    public function getUsageText()
     {
         return $this->usageText;
     }
@@ -251,7 +251,7 @@ class Description implements JsonSerializable
     /**
      * @return string
      */
-    public function getIBAN(): string
+    public function getIBAN()
     {
         return $this->iban;
     }
@@ -267,7 +267,7 @@ class Description implements JsonSerializable
     /**
      * @return string
      */
-    public function getBIC(): string
+    public function getBIC()
     {
         return $this->bic;
     }
