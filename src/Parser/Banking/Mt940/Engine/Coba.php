@@ -85,7 +85,7 @@ class Coba extends Spk
     protected function parseTransactionDescription()
     {
         $results = [];
-        if (preg_match('/:86:([\d]{3}(?=\?)|)(.*?)(?=(:[\d]{2}[\w]?:|$))/s', $this->getCurrentTransactionData(), $results)
+        if (preg_match('/:86:([\d]{3}(?=\?)|)(.*?)(?=(:6[12][\w]?:|$))/s', $this->getCurrentTransactionData(), $results)
             && !empty($results[2])
         ) {
             if ($results[1] !== '') {
