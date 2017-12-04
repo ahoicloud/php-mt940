@@ -61,7 +61,7 @@ class Coba extends Spk
     protected function parseStatementAccount()
     {
         $results = [];
-        if (preg_match('/:25:([\d\.]+)\/([\d\.]{10})([\d\w]{0,3})\r?\n/', $this->getCurrentStatementData(), $results)
+        if (preg_match('/:25:([\d\.]+)\/([\d\.]{9,10})([\d\w]{0,3})\r?\n/', $this->getCurrentStatementData(), $results)
             && !empty($results[1])
         ) {
             return array_slice($results, 1);
