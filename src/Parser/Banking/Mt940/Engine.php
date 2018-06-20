@@ -140,23 +140,28 @@ abstract class Engine
             $statement->setEndTimestamp($this->parseStatementEndTimestamp());
             $statement->setNumber($this->parseStatementNumber());
 
-            foreach ($this->parseTransactionData() as $this->currentTransactionData) {
-                $transaction = new Transaction();
-                if ($this->debug) {
-                    $transaction->rawData = $this->currentTransactionData;
+            try {
+                foreach ($this->parseTransactionData() as $this->currentTransactionData) {
+                    $transaction = new Transaction();
+                    if ($this->debug) {
+                        $transaction->rawData = $this->currentTransactionData;
+                    }
+                    $transaction->setAccount($this->parseTransactionAccount());
+                    $transaction->setAccountName($this->parseTransactionAccountName());
+                    $transaction->setPrice($this->parseTransactionPrice());
+                    $transaction->setDebitCredit($this->parseTransactionDebitCredit());
+                    $transaction->setCancellation($this->parseTransactionCancellation());
+                    $transaction->setDescription($this->parseTransactionDescription());
+                    $transaction->setValueTimestamp($this->parseTransactionValueTimestamp());
+                    $transaction->setEntryTimestamp($this->parseTransactionEntryTimestamp());
+                    $transaction->setTransactionCode($this->parseTransactionCode());
+                    $statement->addTransaction($transaction);
                 }
-                $transaction->setAccount($this->parseTransactionAccount());
-                $transaction->setAccountName($this->parseTransactionAccountName());
-                $transaction->setPrice($this->parseTransactionPrice());
-                $transaction->setDebitCredit($this->parseTransactionDebitCredit());
-                $transaction->setCancellation($this->parseTransactionCancellation());
-                $transaction->setDescription($this->parseTransactionDescription());
-                $transaction->setValueTimestamp($this->parseTransactionValueTimestamp());
-                $transaction->setEntryTimestamp($this->parseTransactionEntryTimestamp());
-                $transaction->setTransactionCode($this->parseTransactionCode());
-                $statement->addTransaction($transaction);
+                $results[] = $statement;
+            } catch(\Exception $e) {
+                echo $e->getMessage();
+                die();
             }
-            $results[] = $statement;
         }
 
         return $results;
