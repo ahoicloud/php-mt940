@@ -10,6 +10,15 @@ use Kingsquare\Banking\Transaction;
 class Coba extends Spk
 {
     /**
+     * returns the name of the bank.
+     *
+     * @return string
+     */
+    protected function parseStatementBank()
+    {
+        return 'CoBa';
+    }
+    /**
      * actual parsing of the data.
      *
      * @return Statement[]
@@ -23,8 +32,8 @@ class Coba extends Spk
                 $statement->rawData = $this->currentStatementData;
             }
             $account = $this->parseStatementAccount();
-            $statement->setBank($account[0]);
-            $statement->setAccount($account[1]);
+            $statement->setBank($this->parseStatementBank());
+            $statement->setAccount($this->parseStatementAccount());
             $statement->setStartPrice($this->parseStatementStartPrice());
             $statement->setEndPrice($this->parseStatementEndPrice());
             $statement->setStartTimestamp($this->parseStatementStartTimestamp());
@@ -61,10 +70,10 @@ class Coba extends Spk
     protected function parseStatementAccount()
     {
         $results = [];
-        if (preg_match('/:25:([\d\.]+)\/([\d\.]{9,10})([\d\w]{0,3})\r?\n/', $this->getCurrentStatementData(), $results)
+        if (preg_match('/:25:([\d\.]+)\/([\d\.]{1,12})/', $this->getCurrentStatementData(), $results)
             && !empty($results[1])
         ) {
-            return array_slice($results, 1);
+            return $this->sanitizeAccount($results[1].$results[2]);
         }
 
         // SEPA / IBAN
